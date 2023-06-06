@@ -1,0 +1,37 @@
+.h1_dm {
+    color: #ffffff;
+}
+
+.nav_dm {
+    background-color: #403D39;
+}
+
+.a_nav_dm {
+    color: rgb(255, 255, 255);
+}
+
+.container_dm {
+    background-color: #3c3b3a;
+    background-color: #353535;
+}
+
+.dropzone_dm {
+    background-color: #ccc5b9;
+}
+
+.resolutionLabel_dm {
+    color: #ffffff;
+}
+
+.convertButton_dm {
+    color: #ffffff;
+    background-color: #403a33;
+}
+
+.dropzone_dm:before {
+    --dash-color: #353535;
+    background: linear-gradient(to right, var(--dash-color) 50%, rgba(255, 255, 255, 0) 0%), linear-gradient(var(--dash-color) 50%, rgba(255, 255, 255, 0) 0%), linear-gradient(to right, var(--dash-color) 50%, rgba(255, 255, 255, 0) 0%), linear-gradient(var(--dash-color) 50%, rgba(255, 255, 255, 0) 0%);
+    background-position: top, right, bottom, left;
+    background-repeat: repeat-x, repeat-y;
+    background-size: 1.5rem 1px, 1px 1.5rem;
+  }

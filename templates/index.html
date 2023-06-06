@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF to JPG Converter</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/converter/pdf_to_jpg.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/converter/dark_mode.css') }}">
+  </head>
+
+  <body>
+
+    <header>
+      <nav class="nav">
+        <ul class="ul_nav">
+          <li class="li"><a class="a_nav" href="#">HOME</a></li>
+          <li class="li"><a class="a_nav" href="#">APPS</a></li>
+          <li class="li"><a class="a_nav" href="#">ABOUT</a></li>
+        </ul>
+        <img class="img_dark-mode" src="{{ url_for('static', filename='icons/dark-theme-nobg.png') }}" alt="Dark-Mode">
+      </nav>
+    </header>
+    <main class="container">
+      
+      <h1 class="h1">PDF to JPG Converter</h1>
+
+      <div class="form">
+
+        <div class="dropzone" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+          <div class="mainOptions">
+            <label for="pdf_file" class="label-for-file-upload">UPLOAD PDF FILE</label>
+            <input type="file" id="pdf_file" name="pdf_files[]" multiple>
+            <p class="dragMessage">Or just drag it...</p>
+          </div>
+          <div class="PDF_container_info"></div>
+        </div>
+        <div class="res">
+          <!--
+          <label for="resolution" class="resolutionLabel">Resolution</label>
+          <input type="number" id="resolution" name="resolution" value="300">
+          -->
+
+          <label for="resolution" class="resolutionLabel">Resolution</label>
+          <select name="resolution" id="resolution" value="300">
+            <option value="100">Low</option>
+            <option selected="selected" value="200">Normal</option>
+            <option value="300">High</option>
+          </select>
+        </div>
+        
+        <input class="convertButton" type="submit" value="Convert">
+      
+      </div>
+      
+    </main>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/converter/pdf_to_jpg.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+  </body>
+</html>

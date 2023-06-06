@@ -1,0 +1,326 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'PT Sans', sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f1eae0;
+}
+
+.h1 {
+    text-align: center;
+    margin: 0rem;
+    font-weight: bold;
+    font-size: 3rem;
+    color: #333;
+}
+
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f3f1;
+    height: 3rem;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  }
+  
+.ul_nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.img_dark-mode {
+  position: fixed;
+  left: 90%;
+  height: 2rem;
+  transition: height 0.3s ease-in-out;
+  transform: translateX(-50%);
+}
+.img_dark-mode:hover {
+  height: 2.5rem;
+}
+
+.li {
+    margin: 0 5rem;
+}
+  
+.a_nav {
+    display: block;
+    padding: 1rem 1.5rem;
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s ease;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+  
+  .a_nav:hover {
+    color: #ff6347;
+  }
+
+.dropzone {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    max-width: 50rem;
+    width: 80%;
+    height: 20rem;
+    background-color: #ffffff;
+    flex-direction: column;
+    transition: background-color 0.3s ease;
+}
+.dropzone:before {
+    content: '';
+    position: absolute;
+    z-index: 3;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /*
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='0' ry='0' stroke='%23a1a1a1' stroke-width='2' stroke-dasharray='8' stroke-dashoffset='0' stroke-linecap='round'/%3e%3c/svg%3e");
+    */
+    background: linear-gradient(to right, rgb(112, 112, 112) 50%, rgba(255, 255, 255, 0) 0%), linear-gradient(rgb(112, 112, 112) 50%, rgba(255, 255, 255, 0) 0%), linear-gradient(to right, rgb(112, 112, 112) 50%, rgba(255, 255, 255, 0) 0%), linear-gradient(rgb(112, 112, 112) 50%, rgba(255, 255, 255, 0) 0%);
+    background-position: top, right, bottom, left;
+    background-repeat: repeat-x, repeat-y;
+    background-size: 1.5rem 1px, 1px 1.5rem;
+  }
+
+div.dragover {
+    background-color: rgb(255, 215, 163);
+    transition: background-color 0.3s ease;
+}
+
+.dragMessage {
+    margin: 0.5rem 0 0 0;
+    color: #333;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Hide the default input button */
+input[type="file"] {
+    display: none;
+  }
+  
+.mainOptions {
+  display: flex;
+  margin: 1rem 0;
+  flex-direction: column;
+  align-items: center;
+}
+
+  /* Style the new button element */
+  .label-for-file-upload {
+    display: inline-block;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    color: rgb(255, 255, 255);
+    background-color: #ff6347;
+    border-color: #72482f;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.5;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Style the new button element on hover */
+  .label-for-file-upload:hover {
+    background-color: #faac63;
+    border-color: #0062cc;
+  }
+  
+  /* Style the new button element on focus */
+  .label-for-file-upload:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+  }
+
+.res {
+    margin-bottom: 1rem;
+}
+
+.resolutionLabel {
+    margin: 0 0.5rem 0 0;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+#resolution {
+    font-size: 1.1rem;
+    color: #333;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0.5rem;
+}
+
+.convertButton {
+    appearance: none;
+    background-color: #c2b8a9;
+    outline: none;
+    border: 1px solid rgb(194, 185, 185);
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 2px;
+    text-transform: uppercase;
+    color: #333;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+.convertButton:hover {
+    cursor: pointer;
+    background-color: #a89f92;
+}
+
+.PDF_container_info {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  padding: 0rem 1rem;
+  justify-content: space-between;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.PDF_info {
+  display: grid;
+  grid-template-columns: 10fr 3fr 2fr;
+  grid-template-rows: auto;
+  align-items: center;
+  width: 100%;
+  border: 1px solid rgb(150, 150, 150);
+  border-right: none;
+  border-left: none;
+  padding: 0.2rem 0;
+}
+
+.PDF_info:not(:last-child) {
+  border-bottom: none;
+}
+
+.PDF_name {
+  grid-column: 1;
+  margin: 0rem 1rem;
+  justify-self: left;
+}
+
+.PDF_size {
+  grid-column: 2;
+  margin: 0 1rem 0 0;
+  justify-self: center;
+}
+
+.PDF_p {
+  margin: 0;
+  font-size: 0.7rem;
+}
+
+.PDF_button {
+  grid-column: 3;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  position: relative;
+  justify-self: center;
+}
+
+.PDF_button::before,
+.PDF_button::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 13px;
+  height: 2px;
+  background-color: rgb(39, 39, 39);
+  transition: background-color 0.3s ease;
+}
+
+.PDF_button::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.PDF_button::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.PDF_button:hover::before,
+.PDF_button:hover::after {
+  background-color: red;
+}
+
+@media screen and (max-width: 850px) {
+  li {
+    margin: 0 2rem;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  li {
+    margin: 0 1rem;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  li {
+    margin: 0;
+  }
+  a {
+    padding: 0rem 1.5rem;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  li {
+    margin: 0;
+  }
+  a {
+    padding: 0rem 0.5rem;
+  }
+}
+
+
+/*
+@media screen and (max-width: 460px) {
+  nav {
+    height: 9rem;
+  }
+  ul {
+    flex-direction: column;
+  }
+}
+*/
