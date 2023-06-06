@@ -34,4 +34,14 @@
     background-position: top, right, bottom, left;
     background-repeat: repeat-x, repeat-y;
     background-size: 1.5rem 1px, 1px 1.5rem;
-  }
+}
+
+.resolution_dm {
+    background-color: #494949 !important;
+    color: #ffffff !important;
+    border: 1px solid #666666;
+}
+
+.dm_on {
+    filter: invert(100%)
+}

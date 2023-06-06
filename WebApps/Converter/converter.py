@@ -10,6 +10,8 @@ import tempfile
 
 convert_bp = Blueprint('converter', __name__, url_prefix='/converter')
 
+MAX_CONTENT_LENGTH = 5 * 1024 * 1024 # 5MB in bytes
+
 @convert_bp.route('/pdf_to_jpg', methods=['POST'])
 def convert_pdf_to_images(image_format='jpg'):
 
@@ -22,6 +24,16 @@ def convert_pdf_to_images(image_format='jpg'):
     elif 'pdf_files' in request.files:
         PDF_files.append(request.files['pdf_files'])
 
+    # Check that the number of files doesn't esceed 5 files
+    if len(PDF_files) > 5:
+        return 'Maximum number of files is 5', 400  # Return an HTTP 400 Bad Request error with an error message
+
+    # Check that the total size of the PDF files doesn't exceed 5MB
+    total_size = sum(len(file.read()) for file in request.files.getlist('pdf_files[]'))
+    print(f"total_size: {total_size/(1024*1024)}")
+    if total_size > MAX_CONTENT_LENGTH:  # 5MB in bytes
+        return 'File size limit exceeded (5MB)', 400  # Return an HTTP 400 Bad Request error with an error message
+
     resolution = min(int(request.form['resolution']), 300)  #resolution <= 300
     resolution = max(resolution, 100)                       #resolution >= 100
                                                             #100 <= resolution <= 300
@@ -30,38 +42,43 @@ def convert_pdf_to_images(image_format='jpg'):
     print(temp_dir)
 
     for PDF_file in PDF_files:
+        PDF_file.seek(0)
         print(PDF_file.filename)
+        #print(len(PDF_file.read()))
         PDF_name, PDF_extension = os.path.splitext(PDF_file.filename)
-        PDF_dir = os.path.join(temp_dir, PDF_name)  # Create a directory for the current PDF
 
-        # Creating folder for PDF
-        try:
-            os.mkdir(PDF_dir)
-        except FileExistsError:
-            i = 1
-            while True:
-                try:
-                    os.mkdir(f"{PDF_dir}_({i})")
-                    PDF_dir = f"{PDF_dir}_({i})"
-                    break
-                except FileExistsError:
-                    i += 1
+        if PDF_extension == ".pdf":
+            
+            PDF_dir = os.path.join(temp_dir, PDF_name)  # Create a directory for the current PDF
 
-        # Open the PDF file using Wand
-        with Image(file=PDF_file, resolution=resolution) as pdf:
-            # Iterate through each page in the PDF
-            for i, page in enumerate(pdf.sequence):
-                # Convert the page to an image
-                with Image(page) as image:
-                    # Set the background color to white (optional)
-                    image.background_color = Color('white')
-                    # Flatten the image so that it is in RGB format
-                    image.alpha_channel = 'remove'
-                    # Set the filename for the image (e.g. "page_1.png")
-                    filename = f"page_{i+1}.{image_format}"
-                    # Save the image to the PDF directory
-                    image.save(filename=os.path.join(PDF_dir, filename))
-                    print(f"Saving images to: {os.path.join(PDF_dir, filename)}")
+            # Creating folder for PDF
+            try:
+                os.mkdir(PDF_dir)
+            except FileExistsError:
+                i = 1
+                while True:
+                    try:
+                        os.mkdir(f"{PDF_dir}_({i})")
+                        PDF_dir = f"{PDF_dir}_({i})"
+                        break
+                    except FileExistsError:
+                        i += 1
+
+            # Open the PDF file using Wand
+            with Image(file=PDF_file, resolution=resolution) as pdf:
+                # Iterate through each page in the PDF
+                for i, page in enumerate(pdf.sequence):
+                    # Convert the page to an image
+                    with Image(page) as image:
+                        # Set the background color to white (optional)
+                        image.background_color = Color('white')
+                        # Flatten the image so that it is in RGB format
+                        image.alpha_channel = 'remove'
+                        # Set the filename for the image (e.g. "page_1.png")
+                        filename = f"page_{i+1}.{image_format}"
+                        # Save the image to the PDF directory
+                        image.save(filename=os.path.join(PDF_dir, filename))
+                        print(f"Saving images to: {os.path.join(PDF_dir, filename)}")
 
     # Create a ZIP file containing the PDF directories
     zip_buffer = io.BytesIO()
@@ -88,25 +105,3 @@ def convert_pdf_to_images(image_format='jpg'):
 
 
 
-
-
-
-#@convert_bp.route('/pptx_to_pdf', methods=['POST'])
-#def pptx_to_pdf():
-#    return 'pptx_to_pdf'
-
-'''
-@convert_bp.route('/pdf_to_jpg', methods=['POST'])
-def pdf_to_jpg():
-    # get the uploaded file
-    file = request.files['file']
-
-    # convert PDF to JPG
-    with Image(file=file, resolution=150) as img:
-        img.format = 'jpg'
-        img.compression_quality = 80
-        img.save(filename='output.jpg')
-    
-    # return the converted file to the user
-    return send_file('output.jpg', as_attachment=True)
-'''

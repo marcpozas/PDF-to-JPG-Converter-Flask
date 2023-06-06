@@ -60,9 +60,9 @@ fileInput.addEventListener('change', (event) => {
 
         const PDF_actual_container = PDF_container.lastElementChild;
 
-        PDF_actual_container.innerHTML += `<div class="PDF_name"><p class="PDF_p">${file.name}</p></div>`;
+        PDF_actual_container.innerHTML += `<div class="PDF_name"><p class="PDF_p_name">${file.name}</p></div>`;
 
-        PDF_actual_container.innerHTML += `<div class="PDF_size"><p class="PDF_p">${(file.size / 1000000).toFixed(2)} MB</p></div>`;
+        PDF_actual_container.innerHTML += `<div class="PDF_size"><p class="PDF_p_size">${(file.size / 1000000).toFixed(2)} MB</p></div>`;
 
         const removeButton = document.createElement('button');
         removeButton.classList.add('PDF_button');
@@ -128,9 +128,21 @@ const convertButton = document.querySelector('.convertButton');
 convertButton.addEventListener('click', (event) => {
     const data = new FormData();
     const files = document.querySelector('input[type="file"]').files;
+    let totalSize = 0;
+    
+    if (files.length > 5) {
+        alert('The maximum number of files is 5');
+        return;
+    }
     
     for (let i = 0; i < files.length; i++) {
+        totalSize += files[i].size;
         data.append('pdf_files[]', files[i]);
+    }
+
+    if (totalSize > 5 * 1024 * 1024) {
+        alert('The total size of the selected files exceeds 5MB. Please select smaller files.');
+        return;
     }
 
     data.append('resolution', document.querySelector('#resolution').value);
@@ -169,6 +181,7 @@ function switchDarkMode(e) {
     const dropzone = document.querySelector('.dropzone');
     const resolutionLabel = document.querySelector('.resolutionLabel');
     const convertButton = document.querySelector('.convertButton');
+    const resolutionSelect = document.getElementById('resolution');
 
     if (!e.target.classList.contains("dm_on")) {
 
@@ -179,6 +192,7 @@ function switchDarkMode(e) {
         dropzone.classList.add("dropzone_dm");
         resolutionLabel.classList.add("resolutionLabel_dm");
         convertButton.classList.add("convertButton_dm");
+        resolutionSelect.classList.add("resolution_dm");
 
         dmButton.classList.add("dm_on");
 
@@ -190,6 +204,7 @@ function switchDarkMode(e) {
         dropzone.classList.remove("dropzone_dm");
         resolutionLabel.classList.remove("resolutionLabel_dm");
         convertButton.classList.remove("convertButton_dm");
+        resolutionSelect.classList.remove("resolution_dm");
 
         dmButton.classList.remove("dm_on");
     }
