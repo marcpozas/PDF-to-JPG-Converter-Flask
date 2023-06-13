@@ -2,6 +2,8 @@
 
 PDF to JPG Converter is a web application built with Flask Python Back-End, HTML, CSS, and JavaScript. It allows users to convert PDF files to JPG images with a choice of three different quality options based on dpi. The application also features a dark mode and utilizes a Flask API for communication between JavaScript and the Python Back-End.
 
+![Preview](images/preview.png)
+
 ## Features
 
 - Convert PDF files to JPG images with three quality options.
